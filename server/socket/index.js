@@ -23,8 +23,8 @@ module.exports = (io) => {
                     socket.to(roomId).emit("typing", username);
                 });
 
-                socket.on("stoptyping", () => {
-                    socket.to(roomId).emit("stoptyping", username);
+                socket.on("stopTyping", () => {
+                    socket.to(roomId).emit("stopTyping", username);
                 });
 
                 // Sending a message
@@ -33,7 +33,7 @@ module.exports = (io) => {
                         const message = await Message.create({
                             sender: user._id,
                             room: roomId,
-                            content: data
+                            content: data.content
                         });
                         const fullMessage = await message.populate("sender", "username");
                         io.to(roomId).emit("newMessage", fullMessage);
